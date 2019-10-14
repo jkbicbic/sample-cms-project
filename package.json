@@ -1,0 +1,9 @@
+{
+  "name": "sample-cms-project",
+  "version": "1.0.0",
+  "description": "content management",
+  "main": "index.js",
+  "repository": "https://github.com/jkbicbic/sample-cms-project",
+  "author": "jkbicbic",
+  "license": "MIT"
+}
