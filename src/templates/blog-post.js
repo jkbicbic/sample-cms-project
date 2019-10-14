@@ -8,15 +8,15 @@ import { rhythm, scale } from "../utils/typography"
 
 class BlogPostTemplate extends React.Component {
   render() {
-    const post = this.props.data.markdownRemark
-    const siteTitle = this.props.data.site.siteMetadata.title
+    const post = this.props.data.contentfulPost
+    const siteTitle = this.props.data.title
     const { previous, next } = this.props.pageContext
+    const content = post.body.content.value
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
         <SEO
-          title={post.frontmatter.title}
-          description={post.frontmatter.description || post.excerpt}
+          title={post.title}
         />
         <article>
           <header>
@@ -26,7 +26,7 @@ class BlogPostTemplate extends React.Component {
                 marginBottom: 0,
               }}
             >
-              {post.frontmatter.title}
+              {post.title}
             </h1>
             <p
               style={{
@@ -35,12 +35,10 @@ class BlogPostTemplate extends React.Component {
                 marginBottom: rhythm(1),
               }}
             >
-              {post.frontmatter.date}
             </p>
           </header>
-          <section dangerouslySetInnerHTML={{ __html: post.html }} />
-          <hr
-            style={{
+          <section dangerouslySetInnerHTML={{ __html: content }} />
+          <hr style={{
               marginBottom: rhythm(1),
             }}
           />
@@ -60,16 +58,12 @@ class BlogPostTemplate extends React.Component {
             }}
           >
             <li>
-              {previous && (
-                <Link to={previous.fields.slug} rel="prev">
-                  ← {previous.frontmatter.title}
+                <Link rel="prev">
                 </Link>
-              )}
             </li>
             <li>
               {next && (
-                <Link to={next.fields.slug} rel="next">
-                  {next.frontmatter.title} →
+                <Link rel="next">
                 </Link>
               )}
             </li>
@@ -83,22 +77,21 @@ class BlogPostTemplate extends React.Component {
 export default BlogPostTemplate
 
 export const pageQuery = graphql`
-  query BlogPostBySlug($slug: String!) {
-    site {
-      siteMetadata {
-        title
-        author
-      }
-    }
-    markdownRemark(fields: { slug: { eq: $slug } }) {
+  query MyQuery {
+  contentfulPost {
+    id
+    title
+    slug
+    media {
       id
-      excerpt(pruneLength: 160)
-      html
-      frontmatter {
-        title
-        date(formatString: "MMMM DD, YYYY")
-        description
+    }
+    body {
+      id
+      content {
+        content {
+          value
+        }
       }
     }
-  }
+  }}
 `
