@@ -37,7 +37,7 @@ class BlogPostTemplate extends React.Component {
               {post.createdAt}
             </p>
           </header>
-          <section dangerouslySetInnerHTML={{ __html: post.body.body }} />
+          <section dangerouslySetInnerHTML={{ __html: post.body.childMarkdownRemark.html }} />
           <hr
             style={{
               marginBottom: rhythm(1),
@@ -80,7 +80,10 @@ export const pageQuery = graphql`
       slug
       title
       body {
-        body
+        childMarkdownRemark {
+            excerpt
+            html
+          }
       }
       description{
         description
