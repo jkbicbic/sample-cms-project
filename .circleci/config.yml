@@ -12,6 +12,7 @@ jobs:
 
     steps:
       - checkout
+      - run: npm install gatsby-source-contentful
       - run: yarn install
       - run:
           name: Install netlify cli
