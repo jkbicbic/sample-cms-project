@@ -11,13 +11,9 @@ exports.createPages = async ({ graphql, actions }) => {
         allContentfulBlogPost {
           edges {
             node {
-              id
-              slug
+              id slug
               title
-              description {
-                description
-              }
-            }
+              description { description } }
           }
         }
       }
@@ -34,7 +30,6 @@ exports.createPages = async ({ graphql, actions }) => {
   posts.forEach((post, index) => {
     const previous = index === posts.length - 1 ? null : posts[index + 1].node
     const next = index === 0 ? null : posts[index - 1].node
-
     createPage({
       path: post.node.slug,
       component: blogPost,
@@ -47,15 +42,21 @@ exports.createPages = async ({ graphql, actions }) => {
   })
 }
 
-exports.onCreateNode = ({ node, actions, getNode }) => {
-  const { createNodeField } = actions
-
-  if (node.internal.type === `MarkdownRemark`) {
-    const value = createFilePath({ node, getNode })
-    createNodeField({
-      name: `slug`,
-      node,
-      value,
-    })
-  }
-}
+// exports.onCreateNode = ({ node, actions, getNode }) => {
+  // const { createNodeField } = actions
+  // const nodeObj = { node, getNode, basePath: "src/pages"}
+  // console.log("============================")
+  // console.log(node)
+  // console.log("============================")
+  // console.log(getNode)
+  // if (node.internal.type === `MarkdownRemark`) {
+    // const value = createFilePath(nodeObj)
+    // console.log("======= STOP HERE =======")
+    // console.log(value)
+    // createNodeField({
+      // name: `slug`,
+      // node,
+      // value,
+    // })
+  // }
+// }
