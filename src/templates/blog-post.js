@@ -10,6 +10,7 @@ class BlogPostTemplate extends React.Component {
   render() {
     const post = this.props.data.contentfulBlogPost
     const siteTitle = this.props.data.site.siteMetadata.title
+    const { previous, next } = this.props.pageContext
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
@@ -58,6 +59,20 @@ class BlogPostTemplate extends React.Component {
               padding: 0,
             }}
           >
+            <li>
+              {previous && (
+                <Link to={previous.slug} rel="prev">
+                  ← {previous.title}
+                </Link>
+              )}
+            </li>
+            <li>
+              {next && (
+                <Link to={next.slug} rel="next">
+                  {next.title} →
+                </Link>
+              )}
+            </li>
           </ul>
         </nav>
       </Layout>

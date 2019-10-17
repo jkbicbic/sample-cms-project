@@ -41,22 +41,3 @@ exports.createPages = async ({ graphql, actions }) => {
     })
   })
 }
-
-// exports.onCreateNode = ({ node, actions, getNode }) => {
-  // const { createNodeField } = actions
-  // const nodeObj = { node, getNode, basePath: "src/pages"}
-  // console.log("============================")
-  // console.log(node)
-  // console.log("============================")
-  // console.log(getNode)
-  // if (node.internal.type === `MarkdownRemark`) {
-    // const value = createFilePath(nodeObj)
-    // console.log("======= STOP HERE =======")
-    // console.log(value)
-    // createNodeField({
-      // name: `slug`,
-      // node,
-      // value,
-    // })
-  // }
-// }
