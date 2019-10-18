@@ -11,6 +11,7 @@ class BlogPostTemplate extends React.Component {
     const post = this.props.data.contentfulBlogPost
     const siteTitle = this.props.data.site.siteMetadata.title
     const { previous, next } = this.props.pageContext
+    const body = post.body.childMarkdownRemark.html
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
@@ -38,8 +39,7 @@ class BlogPostTemplate extends React.Component {
               {post.createdAt}
             </p>
           </header>
-          <section dangerouslySetInnerHTML={{ __html: post.body.childMarkdownRemark.html }} />
-          <hr
+          <section dangerouslySetInnerHTML={{ __html: body }} /> <hr
             style={{
               marginBottom: rhythm(1),
             }}
@@ -83,14 +83,13 @@ class BlogPostTemplate extends React.Component {
 export default BlogPostTemplate
 
 export const pageQuery = graphql`
-  query BlogPostBySlug{
-    site {
+  query BlogPostBySlug($slug: String!) { site {
       siteMetadata {
         title
         author
       }
     }
-     contentfulBlogPost {
+     contentfulBlogPost( slug: { eq: $slug}){
       id
       slug
       title
